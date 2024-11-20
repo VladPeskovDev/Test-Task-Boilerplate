@@ -11,7 +11,9 @@ interface HeaderProps {
 
 export default function Header({ onPairChange, onTimeframeChange }: HeaderProps) {
   const { isDarkMode, toggleDarkMode } = useTheme();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedPair, setSelectedPair] = useState("BTC/USDT");
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedTimeframe, setSelectedTimeframe] = useState("1d");
 
   const handleChangePair = (value: string) => {
@@ -30,7 +32,7 @@ export default function Header({ onPairChange, onTimeframeChange }: HeaderProps)
         <Space wrap>
           <Select
             defaultValue="BTC/USDT"
-            style={{ width: 120 }}
+            style={{ width: 130 }}
             onChange={handleChangePair}
             options={[
               { value: "BTC/USDT", label: "BTC/USDT" },
@@ -43,11 +45,11 @@ export default function Header({ onPairChange, onTimeframeChange }: HeaderProps)
               { value: "DOT/USDT", label: "DOT/USDT" },
               { value: "ADA/USDT", label: "ADA/USDT" },
               { value: "LINK/USDT", label: "LINK/USDT" },
+              { value: "OP/USDT", label: "OP/USDT" },
             ]}
           />
-
           <Segmented<string>
-            options={["1m", "5m", "15m", "1h", "4h", "1d", "3d", "1w", "1M"]}
+            options={[ "5m", "15m", "1h", "4h", "1d", "3d", "1w", "1M"]}
             defaultValue="1d"
             onChange={handleChangeTimeframe}
           />

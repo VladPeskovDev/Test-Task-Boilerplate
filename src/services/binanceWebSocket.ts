@@ -1,12 +1,11 @@
 export const createWebSocketConnection = (
     symbol: string,
     timeframe: string,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     callback: (data: any) => void
   ) => {
     const formattedSymbol = symbol.replace("/", "").toLowerCase();
     const url = `wss://stream.binance.com:9443/ws/${formattedSymbol}@kline_${timeframe}`;
-  
-    console.log("Connecting to WebSocket with URL:", url);
   
     const ws = new WebSocket(url);
   
@@ -15,7 +14,7 @@ export const createWebSocketConnection = (
   
       if (message.k) {
         const candle = {
-          time: message.k.t / 1000, // Время в секундах
+          time: message.k.t / 1000, 
           open: parseFloat(message.k.o),
           high: parseFloat(message.k.h),
           low: parseFloat(message.k.l),
@@ -30,7 +29,7 @@ export const createWebSocketConnection = (
     };
   
     ws.onclose = () => {
-      console.log("WebSocket connection closed");
+      console.log("Соединение закрыто");
     };
   
     return ws;
