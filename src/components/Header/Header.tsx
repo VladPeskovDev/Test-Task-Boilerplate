@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./Header.css";
 import { Button, Segmented, Select, Space } from "antd";
 import { MoonOutlined, SunOutlined } from "@ant-design/icons";
@@ -11,18 +10,12 @@ interface HeaderProps {
 
 export default function Header({ onPairChange, onTimeframeChange }: HeaderProps) {
   const { isDarkMode, toggleDarkMode } = useTheme();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [selectedPair, setSelectedPair] = useState("BTC/USDT");
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [selectedTimeframe, setSelectedTimeframe] = useState("1d");
 
   const handleChangePair = (value: string) => {
-    setSelectedPair(value);
     onPairChange(value);
   };
 
   const handleChangeTimeframe = (value: string) => {
-    setSelectedTimeframe(value);
     onTimeframeChange(value);
   };
 
@@ -49,7 +42,7 @@ export default function Header({ onPairChange, onTimeframeChange }: HeaderProps)
             ]}
           />
           <Segmented<string>
-            options={[ "5m", "15m", "1h", "4h", "1d", "3d", "1w", "1M"]}
+            options={["5m", "15m", "1h", "4h", "1d", "3d", "1w", "1M"]}
             defaultValue="1d"
             onChange={handleChangeTimeframe}
           />

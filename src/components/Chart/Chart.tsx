@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { createChart, DeepPartial, ISeriesApi, LayoutOptions, PriceScaleOptions } from "lightweight-charts";
+import { createChart, DeepPartial, ISeriesApi, LayoutOptions } from "lightweight-charts";
 import { fetchHistoricalData } from "../../services/binanceApi";
 import { createWebSocketConnection } from "../../services/binanceWebSocket";
 import "./Chart.css";
@@ -17,8 +17,8 @@ export default function Chart({ pair, timeframe }: ChartProps) {
 
   useEffect(() => {
     if (!chartContainerRef.current) return;
-
-    const chart = createChart(chartContainerRef.current!, {
+  
+    const chart = createChart(chartContainerRef.current, {
       width: chartContainerRef.current.offsetWidth,
       height: 400,
       layout: {
@@ -29,21 +29,22 @@ export default function Chart({ pair, timeframe }: ChartProps) {
         vertLines: { color: "#e0e0e0" },
         horzLines: { color: "#e0e0e0" },
       },
-      priceScale: {
-        borderColor: "#cccccc",
-      } as DeepPartial<PriceScaleOptions>,
       timeScale: {
         borderColor: "#cccccc",
       },
     });
-    
-
+  
+    // Настраиваем priceScale
+    chart.priceScale("right").applyOptions({
+      borderColor: "#cccccc",
+    });
+  
     const candlestickSeries = chart.addCandlestickSeries();
     candlestickSeriesRef.current = candlestickSeries;
-
+  
     return () => chart.remove();
   }, []);
-
+  
   useEffect(() => {
     if (!candlestickSeriesRef.current) return;
 
